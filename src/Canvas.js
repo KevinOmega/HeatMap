@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "./canvas.css";
+import * as d3 from "d3";
 
 const Canvas = () => {
   const [data, setData] = useState([]);
@@ -19,7 +20,16 @@ const Canvas = () => {
 
   const initData = useCallback(() => {
     console.log(data);
+    const svg = d3
+      .select("#canvas-container")
+      .append("svg")
+      .attr("width", "100%")
+      .attr("height", "100%");
+
+    svg.selectAll("rect").data(data).enter().append("rect").attr("cell");
   }, [data]);
+
+  const resizeData = () => {};
 
   useEffect(() => {
     fetchData();
