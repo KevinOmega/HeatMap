@@ -1,0 +1,19 @@
+.app-center {
+  border: 3px solid black;
+  min-width: 70%;
+  height: 70vh;
+}
+
+#title {
+  height: 7rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#canvas-container {
+  height: calc(70vh - 7rem);
+  width: 100%;
+}
