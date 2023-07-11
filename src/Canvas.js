@@ -39,12 +39,11 @@ const Canvas = () => {
     const xScale = d3
       .scaleLinear()
       .domain([d3.min(data, (d) => d.year), d3.max(data, (d) => d.year)])
-      .nice()
       .range([padding, width - padding]);
 
     const yScale = d3
       .scaleTime()
-      .range([height - padding, padding / 2])
+      .range([padding, height - padding])
       .domain(d3.extent(data, (d) => d.month));
 
     console.log(yScale(new Date(2000, 2, 1)));
@@ -58,7 +57,21 @@ const Canvas = () => {
       .call(xAxis);
     svg.append("g").style("transform", `translate(${padding}px)`).call(yAxis);
 
-    svg.selectAll("rect").data(data).enter().append("rect").attr("cell");
+    const cellWidth =
+      (width - padding * 2) /
+      (d3.max(data, (d) => d.year) - d3.min(data, (d) => d.year));
+    const cellHeight = (height - padding) / 12;
+
+    svg
+      .selectAll("rect")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("class", "cell")
+      .attr("height", cellHeight)
+      .attr("width", cellWidth)
+      .attr("x", (d) => xScale(d.year))
+      .attr("y", (d) => yScale(d.month) - cellHeight);
   }, [data]);
 
   const resizeData = () => {};
