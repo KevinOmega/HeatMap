@@ -8,6 +8,18 @@ const Canvas = () => {
   const [isDrawed, setIsDrawed] = useState(false);
   const containerRef = useRef();
 
+  const colors = [
+    { color: "#0274f5", temp: 3.9 },
+    { color: "#21b9ff", temp: 5.0 },
+    { color: "#70cffa", temp: 6.1 },
+    { color: "#bee6f7", temp: 7.2 },
+    { color: "#f0ff7a", temp: 8.3 },
+    { color: "#fccc6d", temp: 9.5 },
+    { color: "#fca800", temp: 10.6 },
+    { color: "#f55b14", temp: 11.7 },
+    { color: "#ff0000", temp: 12.8 },
+  ];
+
   const fetchData = () => {
     fetch(
       "https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/global-temperature.json"
@@ -71,8 +83,16 @@ const Canvas = () => {
       .attr("height", cellHeight)
       .attr("width", cellWidth)
       .attr("x", (d) => xScale(d.year))
-      .attr("y", (d) => yScale(d.month) - cellHeight);
-  }, [data]);
+      .attr("y", (d) => yScale(d.month) - cellHeight)
+      .attr("fill", (d) => {
+        const total = baseTemperature + d.variance;
+
+        const res = colors.find((c) => total < c.temp);
+        console.log(res);
+
+        return res ? res.color : "#a50000";
+      });
+  }, [data, baseTemperature]);
 
   const resizeData = () => {};
 

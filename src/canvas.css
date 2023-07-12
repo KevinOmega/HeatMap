@@ -1,7 +1,7 @@
 .app-center {
   border: 3px solid black;
-  min-width: 70%;
-  height: 70vh;
+  min-width: 80%;
+  height: 80vh;
 }
 
 #title {
@@ -14,6 +14,6 @@
 }
 
 #canvas-container {
-  height: calc(70vh - 7rem);
+  height: calc(80vh - 7rem);
   width: 100%;
 }
