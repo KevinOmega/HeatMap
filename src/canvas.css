@@ -1,4 +1,5 @@
 .app-center {
+  position: relative;
   border: 3px solid black;
   min-width: 80%;
   height: 80vh;
@@ -14,6 +15,25 @@
 }
 
 #canvas-container {
+  position: relative;
   height: calc(80vh - 7rem);
   width: 100%;
+}
+
+.cell:hover {
+  stroke: black;
+  stroke-width: 2px;
+}
+
+#tooltip {
+  position: absolute;
+  padding: 0.5rem 1rem;
+  top: 0;
+  background-color: #222;
+  color: white;
+  text-align: center;
+}
+
+#tooltip p {
+  font-size: 0.8rem;
 }
