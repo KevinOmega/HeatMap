@@ -1,8 +1,8 @@
 .app-center {
   position: relative;
   border: 3px solid black;
-  min-width: 80%;
-  height: 80vh;
+  min-width: 90vw;
+  height: 90vh;
 }
 
 #title {
@@ -16,7 +16,7 @@
 
 #canvas-container {
   position: relative;
-  height: calc(80vh - 7rem);
+  height: calc(78vh - 7rem);
   width: 100%;
 }
 

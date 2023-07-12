@@ -126,6 +126,7 @@ const Canvas = () => {
            <p>${d.variance}°</p>     
           `
           )
+          .attr("data-year", d.year)
           .style("opacity", "0.9")
           .style(
             "transform",
@@ -137,6 +138,46 @@ const Canvas = () => {
           .style("opacity", "0")
           .style("transform", `translateY(${height}px)`);
       });
+
+    const legendPadding = 10;
+    const legendWidth = 300;
+    const legendHeight = 70;
+
+    const legend = d3
+      .select("#canvas-container")
+      .append("svg")
+      .attr("id", "legend")
+      .attr("height", legendHeight)
+      .attr("width", legendWidth)
+      .style("margin-left", padding);
+
+    const barSize = (legendWidth - legendPadding * 2) / colors.length;
+
+    legend
+      .selectAll("rect")
+      .data(colors)
+      .enter()
+      .append("rect")
+      .attr("height", barSize)
+      .attr("width", barSize)
+      .attr("x", (d, i) => i * barSize + legendPadding)
+      .attr("y", "5px")
+      .attr("fill", (d) => d.color)
+      .attr("stroke", "black")
+      .attr("stroke-width", "2px");
+
+    const legendScale = d3
+      .scaleLinear()
+      .range([legendPadding, legendWidth - legendPadding])
+      .domain(d3.extent(colors, (d) => d.temp))
+      .nice();
+
+    const axe = d3.axisBottom(legendScale).tickFormat((d) => d + "°");
+
+    legend
+      .append("g")
+      .style("transform", `translateY(${barSize + 10}px)`)
+      .call(axe);
   }, [data, baseTemperature]);
 
   useEffect(() => {
@@ -154,7 +195,7 @@ const Canvas = () => {
     <div className="app-center">
       <div id="title">
         <h1>Monthly Global Land-Surface Temperature</h1>
-        <h3>1753-2015 base temperature {baseTemperature}°</h3>
+        <h3 id="description">1753-2015 base temperature {baseTemperature}°</h3>
       </div>
       <div id="canvas-container" ref={containerRef}></div>
     </div>
